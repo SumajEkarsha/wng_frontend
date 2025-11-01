@@ -36,10 +36,6 @@ export function ViewCaseDetailModal({ isOpen, onClose, caseData }: ViewCaseDetai
       case 'intervention':
         return 'bg-warning text-warning-foreground';
       case 'monitoring':
-        return 'bg-secondary text-secondary-foreground';
-      case 'closed':
-        return 'bg-success text-success-foreground';
-      case 'monitoring':
         return 'bg-yellow-500 text-white';
       case 'closed':
         return 'bg-gray-500 text-white';
