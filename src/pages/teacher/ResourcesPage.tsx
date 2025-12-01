@@ -205,6 +205,130 @@ export default function ResourcesPage() {
                </Carousel>
             </section>
 
+            {/* Free Resources Section */}
+            <section className="space-y-4">
+              <Carousel opts={{ align: "start" }} className="w-full">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-4">
+                    <h3 className="text-2xl font-bold tracking-tight flex items-center gap-2">
+                      <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center">
+                        <Sparkles className="w-5 h-5 text-emerald-600" />
+                      </div>
+                      Free Resources
+                    </h3>
+                    <div className="flex items-center gap-2">
+                      <CarouselPrevious className="static rounded-sm h-12 w-12 translate-y-0 bg-white shadow-sm hover:bg-gray-50 border-gray-200" />
+                      <CarouselNext className="static rounded-sm h-12 w-12 translate-y-0 bg-white shadow-sm hover:bg-gray-50 border-gray-200" />
+                    </div>
+                  </div>
+                </div>
+                <CarouselContent className="-ml-4">
+                  {resources.filter((r: any) => r.is_free).slice(0, 12).map((resource: any) => (
+                    <CarouselItem key={resource.resource_id} className="pl-4 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
+                      <div 
+                        className="group cursor-pointer space-y-3"
+                        onClick={() => setViewingResource(resource)}
+                      >
+                        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-muted shadow-sm transition-all duration-300 group-hover:shadow-md group-hover:-translate-y-1">
+                          {resource.thumbnail_url ? (
+                            <img 
+                              src={resource.thumbnail_url} 
+                              alt={resource.title}
+                              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                          ) : (
+                            <div className="flex h-full w-full items-center justify-center bg-emerald-50">
+                              <Sparkles className="w-12 h-12 text-emerald-300" />
+                            </div>
+                          )}
+                          <div className="absolute top-2 right-2 rounded-lg bg-emerald-500 px-2 py-1 text-xs font-bold text-white shadow-md">
+                            FREE
+                          </div>
+                          <div className="absolute bottom-2 right-2 rounded-lg bg-black/60 px-2 py-1 text-xs font-medium text-white backdrop-blur-sm">
+                            {resourceTypeLabels[resource.type]}
+                          </div>
+                        </div>
+                        <div className="space-y-1">
+                          <h3 className="font-semibold leading-tight text-foreground group-hover:text-primary line-clamp-1">
+                            {resource.title}
+                          </h3>
+                          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                            <span className="uppercase tracking-wider text-[10px] font-medium text-primary">
+                              {resource.category}
+                            </span>
+                            <span>•</span>
+                            <span>{resource.author_name || 'WellNest'}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+            </section>
+
+            {/* Premium Resources Section */}
+            <section className="space-y-4">
+              <Carousel opts={{ align: "start" }} className="w-full">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-4">
+                    <h3 className="text-2xl font-bold tracking-tight flex items-center gap-2">
+                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-lg">
+                        <Star className="w-5 h-5 text-white" />
+                      </div>
+                      Premium Resources
+                    </h3>
+                    <div className="flex items-center gap-2">
+                      <CarouselPrevious className="static rounded-sm h-12 w-12 translate-y-0 bg-white shadow-sm hover:bg-gray-50 border-gray-200" />
+                      <CarouselNext className="static rounded-sm h-12 w-12 translate-y-0 bg-white shadow-sm hover:bg-gray-50 border-gray-200" />
+                    </div>
+                  </div>
+                </div>
+                <CarouselContent className="-ml-4">
+                  {resources.filter((r: any) => !r.is_free).slice(0, 12).map((resource: any) => (
+                    <CarouselItem key={resource.resource_id} className="pl-4 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
+                      <div 
+                        className="group cursor-pointer space-y-3"
+                        onClick={() => setViewingResource(resource)}
+                      >
+                        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-muted shadow-sm transition-all duration-300 group-hover:shadow-md group-hover:-translate-y-1 border-2 border-amber-200">
+                          {resource.thumbnail_url ? (
+                            <img 
+                              src={resource.thumbnail_url} 
+                              alt={resource.title}
+                              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                          ) : (
+                            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-amber-50 to-orange-50">
+                              <Star className="w-12 h-12 text-amber-300" />
+                            </div>
+                          )}
+                          <div className="absolute top-2 right-2 rounded-lg bg-gradient-to-r from-amber-400 to-orange-500 px-3 py-1 text-xs font-bold text-white shadow-lg">
+                            ${resource.price || '0'}
+                          </div>
+                          <div className="absolute bottom-2 right-2 rounded-lg bg-black/60 px-2 py-1 text-xs font-medium text-white backdrop-blur-sm">
+                            {resourceTypeLabels[resource.type]}
+                          </div>
+                        </div>
+                        <div className="space-y-1">
+                          <h3 className="font-semibold leading-tight text-foreground group-hover:text-amber-600 line-clamp-1">
+                            {resource.title}
+                          </h3>
+                          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                            <span className="uppercase tracking-wider text-[10px] font-medium text-amber-600">
+                              {resource.category}
+                            </span>
+                            <span>•</span>
+                            <span>{resource.author_name || 'WellNest'}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+            </section>
+
             {/* Type Sections */}
             {['VIDEO', 'AUDIO', 'ARTICLE', 'RESEARCH_PAPER', 'SPECIAL'].map((type) => {
               const typeResources = resources.filter((r: any) => r.type === type);
